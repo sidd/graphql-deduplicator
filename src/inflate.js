@@ -20,7 +20,6 @@ const inflate = (node: Object, index: Object, path: $ReadOnlyArray<string>) => {
     index[route][node.__typename][node.id] = node;
   }
 
-  console.log(node);
   let result = {};
   let fieldNames = Object.keys(node);
   if (Array.isArray(node)) {
@@ -28,13 +27,16 @@ const inflate = (node: Object, index: Object, path: $ReadOnlyArray<string>) => {
     fieldNames = Array.from({ length: node.length }, (el, i) => i);
   }
 
-
   for (const fieldName of fieldNames) {
     const value = node[fieldName];
 
     if (Array.isArray(value)) {
       result[fieldName] = value.map((childNode) => {
-        return inflate(childNode, index, path.concat([fieldName]));
+        if ((typeof childNode === 'object' && childNode !== null) || Array.isArray(childNode)) {
+          return inflate(childNode, index, path.concat([fieldName]));
+        }
+
+        return childNode;
       });
     } else if (typeof value === 'object' && value !== null) {
       result[fieldName] = inflate(value, index, path.concat([fieldName]));

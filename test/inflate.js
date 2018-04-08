@@ -16,10 +16,12 @@ test('inflates a deflated object', (t) => {
           __typename: 'item',
           id: 2,
           name: 'item1',
+          greetings: ['hello', 'hola', 'yo', 'sup'],
         }, {
           __typename: 'item',
           id: 3,
           name: 'item2',
+          greetings: ['hello', 'hola', 'yo', 'sup'],
         }]]
       },
       {
@@ -32,13 +34,12 @@ test('inflates a deflated object', (t) => {
         }, {
           __typename: 'item',
           id: 3,
-        }]]
+        }]],
       }
     ]
   };
 
   const inflatedResponse = inflate(deflatedResponse);
-  console.log(inflatedResponse.data[0].items);
 
   t.deepEqual(inflatedResponse, {
     data: [
@@ -50,10 +51,12 @@ test('inflates a deflated object', (t) => {
           __typename: 'item',
           id: 2,
           name: 'item1',
+          greetings: ['hello', 'hola', 'yo', 'sup'],
         }, {
           __typename: 'item',
           id: 3,
           name: 'item2',
+          greetings: ['hello', 'hola', 'yo', 'sup'],
         }]],
       },
       {
@@ -64,10 +67,12 @@ test('inflates a deflated object', (t) => {
           __typename: 'item',
           id: 2,
           name: 'item1',
+          greetings: ['hello', 'hola', 'yo', 'sup'],
         }, {
           __typename: 'item',
           id: 3,
           name: 'item2',
+          greetings: ['hello', 'hola', 'yo', 'sup'],
         }]],
       }
     ]
