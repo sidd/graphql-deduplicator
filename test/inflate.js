@@ -11,6 +11,75 @@ test('inflates a deflated object', (t) => {
       {
         __typename: 'foo',
         id: 1,
+        name: 'bar',
+        items: [[{
+          __typename: 'item',
+          id: 2,
+          name: 'item1',
+        }, {
+          __typename: 'item',
+          id: 3,
+          name: 'item2',
+        }]]
+      },
+      {
+        __typename: 'foo',
+        id: 2,
+        name: 'dingo',
+        items: [[{
+          __typename: 'item',
+          id: 2,
+        }, {
+          __typename: 'item',
+          id: 3,
+        }]]
+      }
+    ]
+  };
+
+  const inflatedResponse = inflate(deflatedResponse);
+  console.log(inflatedResponse.data[0].items);
+
+  t.deepEqual(inflatedResponse, {
+    data: [
+      {
+        __typename: 'foo',
+        id: 1,
+        name: 'bar',
+        items: [[{
+          __typename: 'item',
+          id: 2,
+          name: 'item1',
+        }, {
+          __typename: 'item',
+          id: 3,
+          name: 'item2',
+        }]],
+      },
+      {
+        __typename: 'foo',
+        id: 2,
+        name: 'dingo',
+        items: [[{
+          __typename: 'item',
+          id: 2,
+          name: 'item1',
+        }, {
+          __typename: 'item',
+          id: 3,
+          name: 'item2',
+        }]],
+      }
+    ]
+  });
+});
+
+test('inflates a deflated object', (t) => {
+  const deflatedResponse = {
+    data: [
+      {
+        __typename: 'foo',
+        id: 1,
         name: 'bar'
       },
       {

@@ -20,9 +20,14 @@ const inflate = (node: Object, index: Object, path: $ReadOnlyArray<string>) => {
     index[route][node.__typename][node.id] = node;
   }
 
-  const fieldNames = Object.keys(node);
+  console.log(node);
+  let result = {};
+  let fieldNames = Object.keys(node);
+  if (Array.isArray(node)) {
+    result = [];
+    fieldNames = Array.from({ length: node.length }, (el, i) => i);
+  }
 
-  const result = {};
 
   for (const fieldName of fieldNames) {
     const value = node[fieldName];
